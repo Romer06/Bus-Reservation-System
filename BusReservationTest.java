@@ -11,7 +11,8 @@ System.out.println("\n---- Welcome to Bus Reservation System ----");
 do{
     System.out.println("\n1.View All Buses");
     System.out.println("2. Book a Seat");
-    System.out.println("3. Exit");
+    System.out.println("3. Search Ticket by ID");
+    System.out.println("4. Exit");
     System.out.print("Enter choice: ");
     choice = Integer.valueOf(sc.nextLine());
 
@@ -24,6 +25,12 @@ do{
             break;
 
         case 2:
+            System.out.println("Enter Passenger Name: ");
+            String pName=sc.nextLine();
+            System.out.println("Enter passenger age: ");
+            int pAge=Integer.valueOf(sc.nextLine());
+            System.out.println("Enter Gender (Male/Femlae):");
+            String pGender =sc.nextLine();
           System.out.println("Enter Bus ID: ");
           int id=Integer.valueOf(sc.nextLine());
           boolean busFound = false;
@@ -38,7 +45,7 @@ do{
                 System.out.println("Enter the seat number:");
                 int seatNum=Integer.valueOf(sc.nextLine());
 
-                b.bookSeat(seatNum,deckChoice);
+                b.bookSeat(seatNum,deckChoice,pName,pAge,pGender);
                 busFound=true;
                 break;
             }
@@ -49,10 +56,30 @@ do{
           break;
           
           case 3:
+            System.out.println("Enter the Ticket ID:");
+            String pId = sc.nextLine();
+            boolean globallyFound = false;
+            for(Bus b : system.busList){
+               Passenger foundPerson = b.searchByTicketId(pId);
+        
+            if(foundPerson != null){
+                System.out.println("--- Ticket Found! ---");
+                System.out.println("Bus ID: " + b.getBusId());
+                foundPerson.getDetails();
+                globallyFound =true;
+                break;
+            }
+            }
+            if(!globallyFound){
+                System.out.println("No passenger found with ID: " + pId);
+            }
+            break;
+
+          case 4:
             System.out.println("Thank you for using the system! :)");
             break;
     }
 
-}while(choice!=3);
+}while(choice!=4);
     }
 }
