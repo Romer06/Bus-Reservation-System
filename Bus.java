@@ -128,4 +128,30 @@ public Passenger searchByTicketId(String ticketId){
 
 }
 
+public boolean cancelByOnlyId(String ticketId) {
+    // 1. Search Lower Deck
+    for (int i = 0; i < lowerDeck.length; i++) {
+        if (lowerDeck[i] != null && lowerDeck[i].getTicketId().equalsIgnoreCase(ticketId)) {
+            System.out.println("Cancelling ticket for: " + lowerDeck[i].getName());
+            lowerDeck[i] = null;
+            availableSeats++;
+            System.out.println("Ticket cancelled successfully! :)");
+            return true; // Found and cancelled
+        }
+    }
+
+    // 2. Search Upper Deck if not found in Lower
+    for (int i = 0; i < upperDeck.length; i++) {
+        if (upperDeck[i] != null && upperDeck[i].getTicketId().equalsIgnoreCase(ticketId)) {
+            System.out.println("Cancelling ticket for: " + upperDeck[i].getName());
+            upperDeck[i] = null;
+            availableSeats++;
+            System.out.println("Ticket cancelled successfully! :)");
+            return true; // Found and cancelled
+        }
+    }
+
+    return false; // Not found anywhere on this bus
+}
+
 }

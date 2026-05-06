@@ -25,5 +25,9 @@ public class Passenger {
         return gender;
     }
 
+    public String getName() {
+    return name; 
+}
+
 
 }
